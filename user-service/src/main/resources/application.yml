@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: USER-SERVICE
+  config:
+    import: configserver:http://localhost:8888
+
+  data:
+    mongodb:
+      uri: mongodb+srv://${USERNAME}:${PASSWORD}@${CLUSTER}/
+      database: ${DATABASE}
+
+management:
+  health:
+    mongo:
+      enabled: false
