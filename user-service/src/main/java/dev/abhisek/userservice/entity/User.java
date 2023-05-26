@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -20,15 +21,15 @@ import java.util.List;
 @Document(collection = "users")
 public class User {
     @JsonIgnore
-    private ObjectId objectId;
+    private ObjectId _id;
     @Id
     private String userId;
     private String name;
     private String email;
     private String password;
-    private List<String> roles;
-
     @JsonIgnore
-    @DocumentReference(collection = "snippets")
+    private List<String> roles;
+    @Transient
     private List<Snippet> snippets;
+
 }
