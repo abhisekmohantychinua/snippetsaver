@@ -1,7 +1,6 @@
 package dev.abhisek.snippetservice.entity;
 
 import lombok.Data;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 
