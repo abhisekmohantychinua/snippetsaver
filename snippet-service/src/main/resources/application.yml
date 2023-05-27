@@ -1,0 +1,15 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: SNIPPET-SERVICE
+  config:
+    import: configserver:http://localhost:8888
+
+  data:
+    mongodb:
+      uri: ${URL}
+      username: ${USERNAME}
+      password: ${PASSWORD}
+      database: ${DATABASE}
