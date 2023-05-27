@@ -18,15 +18,16 @@ public class SnippetController {
 
     //controllers for user
     @PostMapping("/{userId}")
-    public ResponseEntity<String> addSnippet(@RequestBody Snippet snippet
+    public ResponseEntity<Snippet> addSnippet(@RequestBody Snippet snippet
             , @PathVariable String userId) {
         snippet.setUserId(userId);
-        service.addSnippet(snippet);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("Snippet added Successfully");
+                .body(service.addSnippet(snippet));
     }
 
+    // TODO: 27-05-2023 add getAllSnippets()
     @GetMapping("/{snippetId}")
     public ResponseEntity<Snippet> getSnippetBySnippetId(@PathVariable String snippetId) {
         return ResponseEntity

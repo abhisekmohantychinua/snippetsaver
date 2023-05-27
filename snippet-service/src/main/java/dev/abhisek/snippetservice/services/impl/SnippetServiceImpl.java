@@ -1,14 +1,10 @@
 package dev.abhisek.snippetservice.services.impl;
 
 import dev.abhisek.snippetservice.entity.Snippet;
-import dev.abhisek.snippetservice.entity.User;
 import dev.abhisek.snippetservice.exception.SnippetNotFoundException;
 import dev.abhisek.snippetservice.repository.SnippetRepository;
 import dev.abhisek.snippetservice.services.SnippetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,19 +14,15 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SnippetServiceImpl implements SnippetService {
     private final SnippetRepository repository;
-    private final MongoTemplate mongoTemplate;
 
-
+    // TODO: 27-05-2023 Add a feign client which validates a user if the user of snippet is not present we don't need to save the snippet.
     @Override
-    public void addSnippet(Snippet snippet) {
+    public Snippet addSnippet(Snippet snippet) {
         snippet.setSnippetId(UUID
                 .randomUUID()
                 .toString());
         snippet = repository.insert(snippet);
-        mongoTemplate.update(User.class)
-                .matching(Criteria.where("userId").is(snippet.getUserId()))
-                .apply(new Update().push("snippets", snippet.getSnippetId()))
-                .first();
+        return snippet;
     }
 
     @Override
@@ -59,7 +51,8 @@ public class SnippetServiceImpl implements SnippetService {
     @Override
     public Snippet updateSnippet(Snippet snippet) {
         Snippet newSnippet = repository.findById(snippet
-                .getSnippetId()).orElseThrow(SnippetNotFoundException::new);
+                        .getSnippetId())
+                .orElseThrow(SnippetNotFoundException::new);
         newSnippet.setTitle(snippet.getTitle());
         newSnippet.setDescription(snippet.getDescription());
         newSnippet.setCode(snippet.getCode());

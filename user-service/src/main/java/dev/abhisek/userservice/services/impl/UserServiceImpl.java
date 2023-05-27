@@ -43,9 +43,11 @@ public class UserServiceImpl implements UserServices {
 
     @Override
     public User getUserBySnippetId(String snippetId) {
-        return getUserByUserId(snippetService
-                .getSnippetBySnippetId(snippetId)
-                .getUserId());
+        return repository
+                .findById(snippetService
+                        .getSnippetBySnippetId(snippetId)
+                        .getUserId())
+                .orElseThrow(new UserNotFoundException("Provided snippet Id does not belongs to any user."));
     }
 
     @Override
@@ -70,12 +72,12 @@ public class UserServiceImpl implements UserServices {
 
     @Override
     public User updateUser(String userId, User user) {
-        User newUser = getUserByUserId(userId);
-        newUser.setUserId(user.getUserId());
+        User newUser = repository
+                .findById(userId)
+                .orElseThrow(UserNotFoundException::new);
         newUser.setName(user.getName());
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
-        newUser.setSnippets(user.getSnippets());
 
         return repository.save(newUser);
     }

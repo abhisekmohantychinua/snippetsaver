@@ -5,7 +5,7 @@ import dev.abhisek.snippetservice.entity.Snippet;
 import java.util.List;
 
 public interface SnippetService {
-    void addSnippet(Snippet snippet);
+    Snippet addSnippet(Snippet snippet);
     void deleteSnippet(String snippetId);
 
     Snippet getSnippetBySnippetId(String snippetId);
