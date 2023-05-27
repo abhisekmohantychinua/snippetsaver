@@ -54,12 +54,13 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable String userId) {
+    public ResponseEntity<User> updateUser(@PathVariable String userId
+            , @RequestBody User user) {
 
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body(services
-                        .updateUser(userId));
+                        .updateUser(userId, user));
     }
 
     //Admin controllers
