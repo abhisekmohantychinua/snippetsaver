@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -19,8 +20,6 @@ import java.util.List;
 @Data
 @Document(collection = "users")
 public class User {
-    @JsonIgnore
-    private ObjectId _id;
     @Id
     private String userId;
     private String name;
