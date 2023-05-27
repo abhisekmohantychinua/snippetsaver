@@ -20,14 +20,25 @@ public class UserServiceImpl implements UserServices {
 
     @Override
     public List<User> getAllUsers() {
-        return repository.findAll();
+        List<User> users = repository.findAll();
+        users = users
+                .stream()
+                .peek(user -> user
+                        .setSnippets(snippetService
+                                .getSnippetByUserId(user
+                                        .getUserId()))).toList();
+        return users;
     }
 
     @Override
     public User getUserByUserId(String userId) {
-        return repository
+        User user = repository
                 .findById(userId)
                 .orElseThrow(UserNotFoundException::new);
+        user.setSnippets(snippetService
+                .getSnippetByUserId(user.getUserId()));
+
+        return user;
     }
 
     @Override
@@ -43,32 +54,28 @@ public class UserServiceImpl implements UserServices {
                 .randomUUID()
                 .toString());
         repository.save(user);
-        return;
+
     }
 
     @Override
     public void deleteUser(User user) {
         repository.delete(user);
-        return;
     }
 
     @Override
     public void deleteUserByUserId(String userId) {
         repository.deleteById(userId);
-        return;
     }
 
     @Override
-    public User updateUser(String userId) {
-        User user = getUserByUserId(userId);
-        User newUser = User.builder()
-                .objectId(user.getObjectId())
-                .userId(user.getUserId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .snippets(user.getSnippets())
-                .build();
+    public User updateUser(String userId, User user) {
+        User newUser = getUserByUserId(userId);
+        newUser.setUserId(user.getUserId());
+        newUser.setName(user.getName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+        newUser.setSnippets(user.getSnippets());
+
         return repository.save(newUser);
     }
 }
