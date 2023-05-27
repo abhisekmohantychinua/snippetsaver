@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserServices {
         user.setUserId(UUID
                 .randomUUID()
                 .toString());
+        user.setRoles(List.of("ROLE_USER"));
         repository.save(user);
 
     }
