@@ -46,6 +46,7 @@ public class SnippetController {
 
     @DeleteMapping("/{snippetId}")
     public ResponseEntity<String> deleteSnippet(@PathVariable String snippetId) {
+        service.deleteSnippet(snippetId);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body("Deleted Successfully");
@@ -61,7 +62,6 @@ public class SnippetController {
                 .body(service
                         .getAllSnippetByUserId(userId));
     }
-
 
 
 }
