@@ -27,7 +27,14 @@ public class SnippetController {
                 .body(service.addSnippet(snippet));
     }
 
-    // TODO: 27-05-2023 add getAllSnippets()
+
+    @GetMapping
+    public ResponseEntity<List<Snippet>> getAllSnippet() {
+        return ResponseEntity
+                .ok(service
+                        .getAllSnippet());
+    }
+
     @GetMapping("/{snippetId}")
     public ResponseEntity<Snippet> getSnippetBySnippetId(@PathVariable String snippetId) {
         return ResponseEntity
