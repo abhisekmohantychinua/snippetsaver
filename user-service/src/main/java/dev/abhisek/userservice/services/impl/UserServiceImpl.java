@@ -51,16 +51,6 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
-    public void addUser(User user) {
-        user.setUserId(UUID
-                .randomUUID()
-                .toString());
-        user.setRoles(List.of("ROLE_USER"));
-        repository.save(user);
-
-    }
-
-    @Override
     public void deleteUser(User user) {
         repository.delete(user);
     }

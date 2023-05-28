@@ -17,18 +17,6 @@ public class UserController {
     private final UserServices services;
 
     //User controllers
-
-    @PostMapping
-    public ResponseEntity<String> addUser(@RequestBody User user) {
-        services.addUser(user);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body("""
-                        User created successfully.
-                        User id will be sent to provided email.
-                        """);
-    }
-
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUserByUserId(@PathVariable String userId) {
         return ResponseEntity
