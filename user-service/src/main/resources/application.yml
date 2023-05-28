@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: USER-SERVICE+
+    name: USER-SERVICE
   config:
     import: configserver:http://localhost:8888
 
