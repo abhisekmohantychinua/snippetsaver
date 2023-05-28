@@ -81,4 +81,11 @@ public class UserServiceImpl implements UserServices {
 
         return repository.save(newUser);
     }
+
+    @Override
+    public Boolean verifyUser(String userId) {
+        return repository
+                .findById(userId)
+                .isPresent();
+    }
 }
