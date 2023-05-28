@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: API-GATEWAY
+  config:
+    import: configserver:http://localhost:8888
+
+  cloud:
+    gateway:
+      routes:
+        _id:
+        uri:
+        predicates:
