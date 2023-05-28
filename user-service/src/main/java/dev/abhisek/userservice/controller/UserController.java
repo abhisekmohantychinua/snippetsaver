@@ -79,4 +79,13 @@ public class UserController {
                 .ok("Deleted successfully");
     }
 
+    //insider controllers
+
+    @GetMapping("/verify/{userId}")
+    public ResponseEntity<Boolean> verifyUser(@PathVariable String userId) {
+        return ResponseEntity
+                .ok(services
+                        .verifyUser(userId));
+    }
+
 }

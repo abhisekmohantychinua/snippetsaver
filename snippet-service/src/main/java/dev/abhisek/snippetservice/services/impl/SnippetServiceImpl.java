@@ -2,8 +2,10 @@ package dev.abhisek.snippetservice.services.impl;
 
 import dev.abhisek.snippetservice.entity.Snippet;
 import dev.abhisek.snippetservice.exception.SnippetNotFoundException;
+import dev.abhisek.snippetservice.exception.UserNotFoundException;
 import dev.abhisek.snippetservice.repository.SnippetRepository;
 import dev.abhisek.snippetservice.services.SnippetService;
+import dev.abhisek.snippetservice.services.external.UserServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SnippetServiceImpl implements SnippetService {
     private final SnippetRepository repository;
+    private final UserServices userServices;
 
-    // TODO: 27-05-2023 Add a feign client which validates a user if the user of snippet is not present we don't need to save the snippet.
     @Override
     public Snippet addSnippet(Snippet snippet) {
+        if (!userServices.verifyUser(snippet.getUserId()))
+            throw new UserNotFoundException();
         snippet.setSnippetId(UUID
                 .randomUUID()
                 .toString());

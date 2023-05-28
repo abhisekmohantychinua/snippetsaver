@@ -13,5 +13,6 @@ public interface UserServices {
     void deleteUser(User user);
     void deleteUserByUserId(String userId);
     User updateUser(String userId,User user);
+    Boolean verifyUser(String userId);
 
 }
