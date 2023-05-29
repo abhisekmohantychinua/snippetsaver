@@ -11,7 +11,11 @@
 [![github](./github.png)](https://github.com/abhisekmohantychinua)
 
 ### **SnippetSaver Architecture**
-![snippetsaver-architecture](./snippetsaver-architecture.png)
+![snippetsaver-architecture](./snippetsaver-architecture-2.png)
+
+* Above is the current architecture of the project which is upgraded.
+* These are the previous architectures :
+    1. [snippetsaver-architecture-1](./snippetsaver-architecture.png)
 
 ### **ORM for Entities**
 ![snippetsaver-orm](./snippetsaver-orm.png)
