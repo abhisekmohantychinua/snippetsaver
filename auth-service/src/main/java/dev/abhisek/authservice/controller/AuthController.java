@@ -28,7 +28,6 @@ public class AuthController {
                         .authorize(request));
     }
 
-    // TODO: 30-05-2023 This method have to develop more according to it's usage
     @GetMapping("/validate/{token}")
     public ResponseEntity<Boolean> validate(@PathVariable String token) {
         return ResponseEntity
