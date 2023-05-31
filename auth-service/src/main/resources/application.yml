@@ -1,0 +1,17 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: AUTH-SERVICE
+  config:
+    import: configserver:http://localhost:8888
+
+  data:
+    mongodb:
+      uri: ${URL}
+      username: ${USERNAME}
+      password: ${PASSWORD}
+      database: ${DATABASE}
+
+
