@@ -10,6 +10,21 @@ spring:
   cloud:
     gateway:
       routes:
-        _id:
-        uri:
-        predicates:
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user/**
+          filters:
+            - AuthFilter
+
+        - id: SNIPPET-SERVICE
+          uri: lb://SNIPPET-SERVICE
+          predicates:
+            - Path=/snippet/**
+          filters:
+            - AuthFilter
+
+        - id: AUTH-SERVICE
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
