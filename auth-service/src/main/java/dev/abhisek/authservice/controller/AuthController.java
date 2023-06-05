@@ -30,6 +30,7 @@ public class AuthController {
 
     @GetMapping("/validate/{token}")
     public ResponseEntity<Boolean> validate(@PathVariable String token) {
+        System.out.println(token);
         return ResponseEntity
                 .ok(authService.validateToken(token));
     }
