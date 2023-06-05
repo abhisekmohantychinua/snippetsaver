@@ -11,20 +11,23 @@ spring:
     gateway:
       routes:
         - id: USER-SERVICE
-          uri: lb://USER-SERVICE
+          uri: http://localhost:8081
           predicates:
             - Path=/user/**
+            - Method=GET,POST,PUT,DELETE
           filters:
             - AuthFilter
 
         - id: SNIPPET-SERVICE
-          uri: lb://SNIPPET-SERVICE
+          uri: http://localhost:8082
           predicates:
             - Path=/snippet/**
+            - Method=GET,POST,PUT,DELETE
           filters:
             - AuthFilter
 
         - id: AUTH-SERVICE
-          uri: lb://AUTH-SERVICE
+          uri: lb://AUTH-SERVICE/
           predicates:
             - Path=/auth/**
+
