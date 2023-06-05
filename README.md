@@ -126,7 +126,7 @@ public class SecurityConfig {
 
 
 #### Disadvantage
-  1. For validating a user it calls the authservice which forms a cyclic loop.At first I have done the communication beetween these services using `FeignClient` but it gave me the bellow error. For that I have used rest template and no `LoadBalanced`.
+  1. For validating a user, it calls the auth-service which forms a cyclic loop.At first, I have done the communication between these services using `FeignClient` but it gave me the bellow error. For that I have used rest template and no `LoadBalanced`.
   ```
 Description:
 
@@ -152,6 +152,10 @@ Action:
 Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
   ```
 
-  2. And for every time accessing any end point through the gateway, It calls the filter and filter calls the auth-service which is not a good approach to do.And It also makes the response slower.
+  2. And for every time accessing any end point through the gateway, It calls the filter and filter calls the auth-service which is not a good approach to do, And It also makes the response slower.
 
   > So feel free to contribute to this security implementation. I am going to host this website, So if your approach is good, I will feature you on my LinkedIn.
+
+#### New Security implementation
+
+* In the previous security implementation, there was a cyclic loop. But In this implementation, all the authentication and authorization stuffs are handled by auth-service, which is independent of all other services.Any request that passes through the api gateway must have to pass through a filter, and this filter calls the auth service every time for validation. Some selected routes which should be accessible by all like `/register`,`/token`, `/validate` and `/eureaka` are public, i.e., they don't secure with filter. Check out the codes for better understanding about security implementation.
